@@ -1,0 +1,334 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 2, 6, 23;
+  --primary-color: 99, 102, 241;
+  --secondary-color: 168, 85, 247;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 15, 23, 42;
+    --background-end-rgb: 2, 6, 23;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb))
+    )
+    fixed;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #07020f;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, rgba(99, 102, 241, 0.7), rgba(168, 85, 247, 0.7));
+  border-radius: 5px;
+  border: 2px solid #07020f;
+  box-shadow: inset 0 0 6px rgba(168, 85, 247, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, rgba(99, 102, 241, 0.9), rgba(168, 85, 247, 0.9));
+  box-shadow: inset 0 0 8px rgba(168, 85, 247, 0.4);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+
+.hide-scrollbar {
+  scrollbar-width: none;
+}
+
+
+/* Enhanced Glassmorphism styles */
+.glass {
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transition: all 0.7s ease;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.glass:hover::before {
+  left: 100%;
+}
+
+/* Enhanced explore tools button glass effect */
+.explore-tools-btn {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.explore-tools-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: all 0.7s ease;
+  z-index: -1;
+}
+
+.explore-tools-btn:hover {
+  background: rgba(168, 85, 247, 0.15);
+  box-shadow: 0 4px 25px rgba(99, 102, 241, 0.4), 
+              0 0 15px rgba(168, 85, 247, 0.3);
+  transform: translateY(-2px);
+}
+
+.explore-tools-btn:hover::before {
+  left: 100%;
+}
+
+/* Line clamp for text overflow */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* Enhanced shooting star animation */
+@keyframes shooting-star {
+  0% { 
+    transform: translate(0, 0) rotate(-45deg); 
+    opacity: 0;
+    width: 100px;
+  }
+  10% {
+    opacity: 1;
+    width: 100px; 
+  }
+  50% {
+    transform: translate(-125px, 125px) rotate(-45deg);
+    opacity: 1; 
+    width: 100px;
+  }
+  100% { 
+    transform: translate(-250px, 250px) rotate(-45deg); 
+    opacity: 0;
+    width: 100px;
+  }
+}
+
+.star {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(
+    90deg, 
+    rgba(255, 255, 255, 1) 0%,
+    rgba(168, 85, 247, 0.8) 20%,
+    rgba(99, 102, 241, 0.4) 60%,
+    transparent 100%
+  );
+  animation: shooting-star linear infinite;
+  filter: drop-shadow(0 0 6px #fff);
+  z-index: 1;
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.star::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  left: 0;
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 
+    0 0 4px #fff,
+    0 0 10px rgba(168, 85, 247, 0.7),
+    0 0 20px rgba(99, 102, 241, 0.5);
+}
+
+/* Animation utilities */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 
+    0 0 15px rgba(var(--primary-color), 0.3),
+    0 0 30px rgba(var(--secondary-color), 0.2);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pulse {
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+.shine-text {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(99, 102, 241, 0.8),
+    rgba(168, 85, 247, 0.8),
+    rgba(255, 255, 255, 0.8)
+  );
+  background-size: 200% auto;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: shine 6s ease-in-out infinite;
+}
+
+/* Gradient border utility for buttons */
+.gradient-border {
+  position: relative;
+  z-index: 0;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #a855f7);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Center alignment helpers */
+.absolute-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.scroll-indicator {
+  width: 120px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+}
