@@ -12,10 +12,12 @@ const WebsitesGrid: React.FC<WebsitesGridProps> = ({
   websites,
   activeCategory,
 }) => {
-  // Filter websites by category
-  const filteredWebsites = activeCategory === "all"
-    ? websites
-    : websites.filter((website) => website.category === activeCategory);
+  // ⚡ Bolt: Memoize filtered array to avoid O(N) re-computation when other parent state triggers a re-render
+  const filteredWebsites = React.useMemo(() => {
+    return activeCategory === "all"
+      ? websites
+      : websites.filter((website) => website.category === activeCategory);
+  }, [activeCategory, websites]);
 
   // Animation variants
   const containerVariants = {

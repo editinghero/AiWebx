@@ -1,0 +1,3 @@
+## 2025-03-09 - [Preventing Unnecessary React Renders]
+**Learning:** The `AiWebsiteCard` component was recreating animation variants and helper functions (`getDomainFromUrl`) on every render. Additionally, the grid layout (`WebsitesGrid`) was performing array filtering on every render even when the category hadn't changed.
+**Action:** Always extract static configurations (like animation variants) and pure helper functions outside of React component scope to prevent reference recreation. Utilize `React.memo` for list item components when their props rarely change independently of list state, and use `React.useMemo` for any O(N) operations like list filtering based on specific dependencies.

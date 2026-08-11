@@ -10,39 +10,39 @@ interface AiWebsiteCardProps {
   website: AiWebsite;
 }
 
+// ⚡ Bolt: Animation variants extracted to prevent recreating object on every render
+const cardVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut" as const
+    }
+  },
+  hover: {
+    y: -5,
+    boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)",
+    transition: {
+      duration: 0.3,
+      ease: "easeOut" as const
+    }
+  }
+};
+
+// ⚡ Bolt: Helper function extracted outside to prevent function recreation on every render
+const getDomainFromUrl = (url: string): string => {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.hostname;
+  } catch {
+    // If URL parsing fails, return the original URL
+    return url;
+  }
+};
+
 const AiWebsiteCard: React.FC<AiWebsiteCardProps> = ({ website }) => {
-  // Animation variants
-  const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.4,
-        ease: "easeOut" as const
-      }
-    },
-    hover: {
-      y: -5,
-      boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)",
-      transition: {
-        duration: 0.3,
-        ease: "easeOut" as const
-      }
-    }
-  };
-
-  // Get favicon from website's domain
-  const getDomainFromUrl = (url: string): string => {
-    try {
-      const urlObj = new URL(url);
-      return urlObj.hostname;
-    } catch {
-      // If URL parsing fails, return the original URL
-      return url;
-    }
-  };
-
   const domain = getDomainFromUrl(website.url);
   const [imgError, setImgError] = React.useState(false);
   
@@ -108,4 +108,5 @@ const AiWebsiteCard: React.FC<AiWebsiteCardProps> = ({ website }) => {
   );
 };
 
-export default AiWebsiteCard; 
+// ⚡ Bolt: Wrap with React.memo to prevent unnecessary re-renders when parent state changes but website props remain identical
+export default React.memo(AiWebsiteCard);
