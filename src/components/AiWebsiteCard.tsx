@@ -43,6 +43,20 @@ const AiWebsiteCard: React.FC<AiWebsiteCardProps> = ({ website }) => {
     }
   };
 
+  // 🛡️ Sentinel: XSS protection - sanitize URL to prevent javascript: execution
+  const getSafeUrl = (url: string): string => {
+    try {
+      const urlObj = new URL(url);
+      if (['http:', 'https:'].includes(urlObj.protocol)) {
+        return url;
+      }
+      return '#'; // Fallback for unsafe URLs
+    } catch {
+      return '#'; // Fallback for invalid URLs
+    }
+  };
+
+  const safeUrl = getSafeUrl(website.url);
   const domain = getDomainFromUrl(website.url);
   const [imgError, setImgError] = React.useState(false);
   
@@ -55,7 +69,7 @@ const AiWebsiteCard: React.FC<AiWebsiteCardProps> = ({ website }) => {
       whileHover="hover"
       className="h-full"
     >
-      <Link href={website.url} target="_blank" rel="noopener noreferrer" className="h-full">
+      <Link href={safeUrl} target="_blank" rel="noopener noreferrer" className="h-full">
         <Card className="group relative h-full overflow-hidden border border-slate-700/30 bg-slate-800/40 backdrop-blur-md">
           {/* Improved glassmorphism effect */}
           <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-70" />
