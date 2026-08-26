@@ -1,3 +1,6 @@
+> mostly made to learn and integration hero animation 
+
+
 ## AiWebx
 A comprehensive directory of AI tools and websites for every need. Explore curated collections of the best AI platforms across multiple categories.
 
